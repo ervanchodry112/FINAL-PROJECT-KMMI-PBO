@@ -35,4 +35,5 @@ public class Rekening {
     public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
+
 }
