@@ -1,5 +1,6 @@
 package pkgfinal.project;
 
+
 import java.util.ArrayList;
 
 public class Individu extends Nasabah {

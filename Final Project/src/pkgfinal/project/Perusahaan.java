@@ -1,5 +1,6 @@
 package pkgfinal.project;
 
+
 import java.util.ArrayList;
 
 public class Perusahaan extends Nasabah {
@@ -29,6 +30,5 @@ public class Perusahaan extends Nasabah {
             System.out.printf("%d  %32.2f\n", rekening.get(i).getNoRekening(),rekening.get(i).getSaldo());
         }
         
-    }
-    
+    }    
 }
