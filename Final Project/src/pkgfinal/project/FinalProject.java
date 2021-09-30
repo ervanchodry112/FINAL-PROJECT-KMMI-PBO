@@ -29,9 +29,9 @@ public class FinalProject extends Application {
     public static void main(String[] args){
         //        launch(args);
         try {
-            Rekening rek = new Rekening(11, 100000.);
+            Rekening rek = new Rekening(12, 100000.);
             nasabahDataModel ndm = new nasabahDataModel("SQLITE");
-            Individu temp = new Individu(15000L, 131456L, 1, "Ervan", "Rejomulyo", rek);
+            Perusahaan temp = new Perusahaan("12435", 2, "Budi", "Kota Balam", rek);
             ndm.addNasabah(temp);
             System.out.println("Data berhasil ditambahkan");
         } catch (SQLException ex) {
