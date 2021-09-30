@@ -5,11 +5,12 @@ import java.util.ArrayList;
 
 public class Perusahaan extends Nasabah {
     private String nib;
-    
-    public Perusahaan(String nib, String nama, String alamat, ArrayList<Rekening> rekening) {
-        super(nama, alamat, rekening);
+
+    public Perusahaan(String nib, int id_nasabah, String nama, String alamat, ArrayList<Rekening> rekening) {
+        super(id_nasabah, nama, alamat, rekening);
         this.nib = nib;
     }
+    
     public String getNib() {
         return nib;
     }

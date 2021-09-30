@@ -8,9 +8,15 @@ public class Individu extends Nasabah {
     private long nik;
     private long npwp;
 
-    public Individu(long nip, long npwp, String nama, String alamat, ArrayList<Rekening> rekening){
-        super(nama, alamat, rekening);
-        this.nik = nip;
+    public Individu(long nik, long npwp, int id_nasabah, String nama, String alamat, Rekening rekening){
+        super(id_nasabah, nama, alamat, rekening);
+        this.nik = nik;
+        this.npwp = npwp;
+    }
+    
+    public Individu(long nik, long npwp, int id_nasabah, String nama, String alamat, ArrayList<Rekening> rekening){
+        super(id_nasabah, nama, alamat, rekening);
+        this.nik = nik;
         this.npwp = npwp;
     }
 
