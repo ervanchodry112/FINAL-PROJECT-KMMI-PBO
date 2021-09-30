@@ -11,6 +11,11 @@ public class Perusahaan extends Nasabah {
         this.nib = nib;
     }
     
+    public Perusahaan(String nib, int id_nasabah, String nama, String alamat, Rekening rekening) {
+        super(id_nasabah, nama, alamat, rekening);
+        this.nib = nib;
+    }
+    
     public String getNib() {
         return nib;
     }
