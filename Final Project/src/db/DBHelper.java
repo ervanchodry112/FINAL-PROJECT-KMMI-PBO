@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 public class DBHelper {
     private static final String DB = "koperasi";
-    private static final String SQCONN = "jdbc:sqlite:D:\\Github\\Java\\FINAL-PROJECT-KMMI-PBO\\koperasi.sqlite";
+    private static final String SQCONN = "jdbc:sqlite:src\\db\\koperasi.sqlite";
     
     public static Connection getConnection(String driver) throws SQLException{
         Connection conn = null;

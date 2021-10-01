@@ -20,6 +20,7 @@ public class FinalProject extends Application {
         Scene scene = new Scene(root);
 //        scene.setRoot(root);
         
+        stage.setTitle("SISTEM KOPERASI");
         stage.setScene(scene);
         stage.show();
     }
@@ -29,7 +30,14 @@ public class FinalProject extends Application {
      * @throws java.lang.Exception
      */
     public static void main(String[] args)throws Exception{
-                launch(args);
+            
+            try{
+                DBHelper.getConnection("SQLITE");
+            }
+            catch(SQLException ex){
+                System.out.println("koneksi gagal");
+            }
+            launch(args);
 //        try {
 //            Rekening rek = new Rekening(12, 100000.);
 //            nasabahDataModel ndm = new nasabahDataModel("SQLITE");
