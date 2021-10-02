@@ -1,6 +1,7 @@
 package pkgfinal.project;
 
 import db.DBHelper;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,7 +16,7 @@ public class FinalProject extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("NasabahForm.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
         
         Scene scene = new Scene(root);
 //        scene.setRoot(root);
@@ -29,7 +30,14 @@ public class FinalProject extends Application {
      * @throws java.lang.Exception
      */
     public static void main(String[] args)throws Exception{
-                launch(args);
+            
+            try{
+                DBHelper.getConnection("SQLITE");
+            }
+            catch(SQLException ex){
+                System.out.println("koneksi gagal");
+            }
+            launch(args);
 //        try {
 //            Rekening rek = new Rekening(12, 100000.);
 //            nasabahDataModel ndm = new nasabahDataModel("SQLITE");

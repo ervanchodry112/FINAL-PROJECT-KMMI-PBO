@@ -11,7 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class nasabahDataModel {
-    private final Connection conn;
+    public final Connection conn;
 
     public nasabahDataModel(String driver) throws SQLException {
         this.conn = DBHelper.getConnection(driver);
@@ -72,36 +72,40 @@ public class nasabahDataModel {
     
     public ObservableList<Individu> getIndividu() throws SQLException{
         ObservableList<Individu> data = FXCollections.observableArrayList();
-        String sql = "SELECT 'id_nasabah', 'nama', 'alamat' "
-                + "FROM 'nasabah' NATURAL JOIN 'individu' "
-                + "ORDER BY nama";
+        String sql = "SELECT id_nasabah, nama, alamat, nik, npwp "
+                + "FROM nasabah NATURAL JOIN individu "
+                + "ORDER BY id_nasabah";
         ResultSet rs = conn.createStatement().executeQuery(sql);
-        String sqlRek = "SELECT 'no_rekening', 'saldo' "
-                + "FROM 'rekening' WHERE 'id_nasabah'=" +rs.getInt(1);
-        ResultSet rsRek = conn.createStatement().executeQuery(sqlRek);
-        ArrayList <Rekening> dataRekening = new ArrayList<Rekening>();
-        while(rsRek.next()){
-            dataRekening.add(new Rekening(rsRek.getInt(1), rsRek.getDouble(2)));
+        while(rs.next()){
+            String sqlRek = "SELECT no_rekening, saldo "
+                    + "FROM rekening WHERE id_nasabah=" +rs.getInt(1);
+            ResultSet rsRek = conn.createStatement().executeQuery(sqlRek);
+            ArrayList <Rekening> dataRekening = new ArrayList<Rekening>();
+            while(rsRek.next()){
+                dataRekening.add(new Rekening(rsRek.getInt(1), rsRek.getDouble(2)));
+            }
+            data.add(new Individu(rs.getLong(4), rs.getLong(5) , rs.getInt(1),
+                    rs.getString(2), rs.getString(3), dataRekening));
         }
-        data.add(new Individu(rs.getLong(1), rs.getLong(2) , rs.getInt(3),
-                rs.getString(4), rs.getString(5), dataRekening));
         return data;
     }
     
     public ObservableList<Perusahaan> getPerusahaan() throws SQLException{
         ObservableList<Perusahaan> data = FXCollections.observableArrayList();
-        String sql = "SELECT 'id_nasabah', 'nama', 'alamat' "
-                + "FROM 'nasabah' NATURAL JOIN 'perusahaan' "
-                + "ORDER BY nama";
+        String sql = "SELECT id_nasabah, nama, alamat, nib "
+                + "FROM nasabah NATURAL JOIN perusahaan "
+                + "ORDER BY id_nasabah";
         ResultSet rs = conn.createStatement().executeQuery(sql);
-        String sqlRek = "SELECT 'no_rekening', 'saldo' "
-                + "FROM 'rekening' WHERE 'id_nasabah'=" +rs.getInt(1);
-        ResultSet rsRek = conn.createStatement().executeQuery(sqlRek);
-        ArrayList <Rekening> dataRekening = new ArrayList<Rekening>();
-        while(rsRek.next()){
-            dataRekening.add(new Rekening(rsRek.getInt(1), rsRek.getDouble(2)));
+        while(rs.next()){
+            String sqlRek = "SELECT no_rekening, saldo "
+                    + "FROM rekening WHERE id_nasabah=" +rs.getInt(1);
+            ResultSet rsRek = conn.createStatement().executeQuery(sqlRek);
+            ArrayList <Rekening> dataRekening = new ArrayList<Rekening>();
+            while(rsRek.next()){
+                dataRekening.add(new Rekening(rsRek.getInt(1), rsRek.getDouble(2)));
+            }
+            data.add(new Perusahaan(rs.getString(4), rs.getInt(1), rs.getString(2), rs.getString(3), dataRekening));
         }
-        data.add(new Perusahaan(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getString(4), dataRekening));
         return data;
     }
     
@@ -134,5 +138,16 @@ public class nasabahDataModel {
             return rs.getInt(1)+1;
         }
         return 0;
+    }
+    
+    public void addRekening(int id_nasabah, Rekening rekening) throws SQLException{
+        String insertRekening = "INSERT INTO rekening (id_nasabah, no_rekening, saldo)"
+                + " VALUES (?,?,?)";
+        
+        PreparedStatement stmtRekening = conn.prepareStatement(insertRekening);
+        stmtRekening.setInt(1, id_nasabah);
+        stmtRekening.setInt(2, rekening.getNoRekening());
+        stmtRekening.setDouble(3, rekening.getSaldo());
+        stmtRekening.execute();
     }
 }
