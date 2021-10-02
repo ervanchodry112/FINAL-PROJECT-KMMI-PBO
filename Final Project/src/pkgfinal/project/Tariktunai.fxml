@@ -21,26 +21,31 @@
                <font>
                   <Font size="15.0" />
                </font></TextField>
-            <TextField fx:id="txtnominal" layoutX="215.0" layoutY="218.0" prefHeight="25.0" prefWidth="218.0" promptText="Nominal">
+            <TextField fx:id="txtnominal" layoutX="215.0" layoutY="262.0" prefHeight="25.0" prefWidth="218.0" promptText="Nominal">
                <font>
                   <Font size="15.0" />
                </font></TextField>
-            <Label fx:id="succes" layoutX="152.0" layoutY="329.0" textAlignment="CENTER" textFill="#13ff0f" />
-            <Label fx:id="failed" layoutX="152.0" layoutY="359.0" textAlignment="CENTER" textFill="#e51102" />
+            <Label fx:id="succes" alignment="CENTER" contentDisplay="CENTER" layoutX="264.0" layoutY="306.0" prefHeight="17.0" prefWidth="170.0" textAlignment="CENTER" textFill="#13ff0f" />
+            <Label fx:id="failed" alignment="CENTER" contentDisplay="CENTER" layoutX="239.0" layoutY="306.0" prefHeight="17.0" prefWidth="171.0" textAlignment="CENTER" textFill="#e51102" />
             <TextField fx:id="tfIDNasabah" editable="false" layoutX="215.0" layoutY="127.0" prefHeight="31.0" prefWidth="220.0" promptText="ID Nasabah">
                <font>
                   <Font size="15.0" />
                </font>
             </TextField>
-            <Button fx:id="btntunai" contentDisplay="CENTER" layoutX="254.0" layoutY="279.0" mnemonicParsing="false" onAction="#handletarik" prefHeight="30.0" prefWidth="143.0" style="-fx-background-color: #1e90ff;" text="Tarik Tunai" textAlignment="CENTER" textFill="WHITE">
+            <Button fx:id="btntunai" contentDisplay="CENTER" layoutX="254.0" layoutY="339.0" mnemonicParsing="false" onAction="#handletarik" prefHeight="30.0" prefWidth="143.0" style="-fx-background-color: #1e90ff;" text="Tarik Tunai" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font></Button>
-            <Button fx:id="btndeposit" alignment="CENTER" contentDisplay="CENTER" layoutX="254.0" layoutY="323.0" mnemonicParsing="false" onAction="#handledeposit" prefHeight="30.0" prefWidth="144.0" style="-fx-background-color: #1e90ff;" text="Deposit" textFill="WHITE">
+            <Button fx:id="btndeposit" alignment="CENTER" contentDisplay="CENTER" layoutX="254.0" layoutY="383.0" mnemonicParsing="false" onAction="#handledeposit" prefHeight="30.0" prefWidth="144.0" style="-fx-background-color: #1e90ff;" text="Deposit" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
+            <TextField fx:id="tfSaldo" editable="false" layoutX="215.0" layoutY="217.0" prefHeight="25.0" prefWidth="218.0" promptText="Saldo saat ini">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
          </children>
       </AnchorPane>
    </center>

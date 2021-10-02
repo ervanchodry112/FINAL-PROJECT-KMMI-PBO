@@ -7,6 +7,7 @@ package pkgfinal.project;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -48,20 +49,68 @@ public class TariktunaiController implements Initializable {
 
     @FXML
     private TextField txtrek;
+    
+    @FXML
+    private TextField tfSaldo;
+    
+    private nasabahDataModel ndm;
+    private Rekening globRek;
+    
+    public void setGlobRek(Rekening rek){
+        this.globRek = rek;
+    }
 
     @FXML
     void handledeposit(ActionEvent event) {
-
+        double saldoAwal = globRek.getSaldo();
+        double nominal = Double.parseDouble(txtnominal.getText());
+        double temp = saldoAwal + nominal;
+        try{
+            String sql = " UPDATE rekening SET saldo = " + temp
+                + " WHERE no_rekening = " + globRek.getNoRekening();
+            
+            PreparedStatement stmtUpdate = ndm.conn.prepareStatement(sql);
+            stmtUpdate.execute();
+            stmtUpdate.close();
+            failed.setText("");
+            succes.setText("Saldo Berhasil Di Update");
+                
+        }
+        catch(Exception ex){
+            System.out.println(ex);
+        }
     }
 
     @FXML
     void handletarik(ActionEvent event) {
-
+        double saldoAwal = Double.parseDouble(tfSaldo.getText());
+        double nominal = Double.parseDouble(txtnominal.getText());
+        double temp = saldoAwal - nominal;
+        if(saldoAwal < nominal){
+            failed.setText("Saldo anda tidak mencukupi!");
+            succes.setText("");
+        }else{
+            try{
+                String sql = "UPDATE rekening SET saldo = " + temp
+                    + " WHERE no_rekening = " + txtrek.getText();
+            
+                PreparedStatement stmtUpdate = ndm.conn.prepareStatement(sql);
+                stmtUpdate.execute();
+                failed.setText("");
+                succes.setText("Saldo Berhasil Di Update");
+                
+            }
+            catch(Exception ex){
+                System.out.println(ex);
+            }
+            
+        }
     }
     
-    public void showInformation(String id_nasabah, String no_rekening){
+    public void showInformation(String id_nasabah, Rekening rekening){
         tfIDNasabah.setText(id_nasabah);
-        txtrek.setText(no_rekening);
+        txtrek.setText(""+rekening.getNoRekening());
+        tfSaldo.setText(""+rekening.getSaldo());
     }
 
     @Override

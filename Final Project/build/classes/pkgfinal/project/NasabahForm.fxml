@@ -23,7 +23,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" text="logOut" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -141,20 +141,28 @@
                                                                </padding>
                                                             </VBox>
                                                             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="213.0" layoutX="322.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="189.0" />
-                                                            <VBox alignment="TOP_CENTER" layoutX="322.0" layoutY="61.0" prefHeight="94.0" prefWidth="189.0" spacing="8.0">
+                                                            <AnchorPane layoutX="322.0" layoutY="3.0" prefHeight="213.0" prefWidth="189.0">
                                                                <children>
-                                                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="151.0" text="Transaksi" textFill="WHITE">
+                                                                  <TextField fx:id="nominalTransaksi" layoutX="15.0" layoutY="80.0" prefHeight="25.0" prefWidth="160.0" promptText="Nominal">
                                                                      <font>
-                                                                        <Font size="26.0" />
+                                                                        <Font size="13.0" />
+                                                                     </font>
+                                                                  </TextField>
+                                                                  <Button fx:id="btnTarik" layoutX="14.0" layoutY="148.0" mnemonicParsing="false" onAction="#TarikTunai" style="-fx-background-color: #FFFFFF;" text="Tarik Tunai" textFill="DODGERBLUE" />
+                                                                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="19.0" layoutY="6.0" prefHeight="38.0" prefWidth="151.0" text="Transaksi" textFill="WHITE">
+                                                                     <font>
+                                                                        <Font size="18.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Button fx:id="btnTransaksi" mnemonicParsing="false" onAction="#OpenTransaksi" style="-fx-background-color: #FFFFFF;" text="Setoran &amp; Tarik Tunai" textFill="DODGERBLUE">
+                                                                  <TextField fx:id="tfNoRekTransaksi" editable="false" layoutX="15.0" layoutY="44.0" prefHeight="25.0" prefWidth="160.0" promptText="Nomor Rekening">
                                                                      <font>
-                                                                        <Font size="15.0" />
+                                                                        <Font size="13.0" />
                                                                      </font>
-                                                                  </Button>
+                                                                  </TextField>
+                                                                  <Button fx:id="btnSetor" layoutX="98.0" layoutY="148.0" mnemonicParsing="false" onAction="#SetorTunai" prefHeight="25.0" prefWidth="77.0" style="-fx-background-color: #FFFFFF;" text="Setor" textFill="DODGERBLUE" />
+                                                                  <Label fx:id="lblStatusTransaksi" alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="115.0" prefHeight="25.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE" />
                                                                </children>
-                                                            </VBox>
+                                                            </AnchorPane>
                                                          </children>
                                                       </AnchorPane>
                                                    </children>
@@ -263,7 +271,7 @@
                                                       </AnchorPane>
                                                       <AnchorPane prefHeight="198.0" prefWidth="537.0">
                                                          <children>
-                                                            <VBox prefHeight="200.0" prefWidth="316.0" spacing="10.0">
+                                                            <VBox prefHeight="200.0" prefWidth="304.0" spacing="10.0">
                                                                <children>
                                                                   <Label text="Rekening Baru" />
                                                                   <TextField fx:id="tfIDNasabahBaru1" editable="false" prefHeight="26.0" prefWidth="172.0" promptText="ID Nasabah" />
@@ -275,6 +283,28 @@
                                                                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                                                </padding>
                                                             </VBox>
+                                                            <AnchorPane layoutX="310.0" prefHeight="213.0" prefWidth="195.0" style="-fx-background-color: #136f63;">
+                                                               <children>
+                                                                  <TextField fx:id="nominalTransaksi1" layoutX="15.0" layoutY="80.0" prefHeight="25.0" prefWidth="160.0" promptText="Nominal">
+                                                                     <font>
+                                                                        <Font size="13.0" />
+                                                                     </font>
+                                                                  </TextField>
+                                                                  <Button fx:id="btnTarik1" layoutX="15.0" layoutY="142.0" mnemonicParsing="false" onAction="#TarikTunai1" style="-fx-background-color: #FFFFFF;" text="Tarik Tunai" textFill="#136f63" />
+                                                                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="19.0" layoutY="6.0" prefHeight="38.0" prefWidth="151.0" text="Transaksi" textFill="WHITE">
+                                                                     <font>
+                                                                        <Font size="18.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <TextField fx:id="tfNoRekTransaksi1" editable="false" layoutX="15.0" layoutY="44.0" prefHeight="25.0" prefWidth="160.0" promptText="Nomor Rekening">
+                                                                     <font>
+                                                                        <Font size="13.0" />
+                                                                     </font>
+                                                                  </TextField>
+                                                                  <Button fx:id="btnSetor1" layoutX="98.0" layoutY="142.0" mnemonicParsing="false" onAction="#SetorTunai1" prefHeight="25.0" prefWidth="77.0" style="-fx-background-color: #FFFFFF;" text="Setor" textFill="#136f63" />
+                                                                  <Label fx:id="lblStatusTransaksi1" alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="109.0" prefHeight="25.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE" />
+                                                               </children>
+                                                            </AnchorPane>
                                                          </children>
                                                       </AnchorPane>
                                                    </children>

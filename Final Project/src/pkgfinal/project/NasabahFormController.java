@@ -1,8 +1,8 @@
 package pkgfinal.project;
 
-import java.awt.MenuItem;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,7 +25,7 @@ import javafx.stage.Stage;
 
 public class NasabahFormController implements Initializable{
 
-    @FXML
+     @FXML
     private Button btnClear;
 
     @FXML
@@ -35,6 +36,12 @@ public class NasabahFormController implements Initializable{
 
     @FXML
     private Button btnRefresh1;
+
+    @FXML
+    private Button btnSetor;
+
+    @FXML
+    private Button btnSetor1;
 
     @FXML
     private Button btnTambahAkun;
@@ -49,6 +56,12 @@ public class NasabahFormController implements Initializable{
     private Button btnTambahRekening1;
 
     @FXML
+    private Button btnTarik;
+
+    @FXML
+    private Button btnTarik1;
+
+    @FXML
     private TableColumn<Individu, String> kolomAlamat;
 
     @FXML
@@ -61,19 +74,13 @@ public class NasabahFormController implements Initializable{
     private TableColumn<Perusahaan, Integer> kolomID1;
 
     @FXML
-    private TableColumn<Individu, Integer> kolomJumlahRekening;
+    private TableColumn<Individu, Integer> kolomNIB;
 
     @FXML
-    private TableColumn<Perusahaan, Integer> kolomJumlahRekening1;
+    private TableColumn<Individu, Integer> kolomNIK;
 
     @FXML
-    private TableColumn<Perusahaan, String> kolomNIB;
-
-    @FXML
-    private TableColumn<Individu, Long> kolomNIK;
-
-    @FXML
-    private TableColumn<Individu, Long> kolomNPWP;
+    private TableColumn<Perusahaan, Integer> kolomNPWP;
 
     @FXML
     private TableColumn<Individu, String> kolomNama;
@@ -98,6 +105,12 @@ public class NasabahFormController implements Initializable{
 
     @FXML
     private Label labelSaveStatus1;
+
+    @FXML
+    private TextField nominalTransaksi;
+
+    @FXML
+    private TextField nominalTransaksi1;
 
     @FXML
     private Label statusDatabase;
@@ -148,6 +161,12 @@ public class NasabahFormController implements Initializable{
     private TextField tfNama1;
 
     @FXML
+    private TextField tfNoRekTransaksi;
+
+    @FXML
+    private TextField tfNoRekTransaksi1;
+
+    @FXML
     private TextField tfNoRekening;
 
     @FXML
@@ -172,7 +191,11 @@ public class NasabahFormController implements Initializable{
     private TextField tfSaldoRekeningBaru1;
     
     @FXML
-    private Button btnTransaksi;
+    private Label lblStatusTransaksi;
+    
+    @FXML
+    private Label lblStatusTransaksi1;
+
     
     private nasabahDataModel ndm;
     private Rekening globRek;
@@ -188,6 +211,7 @@ public class NasabahFormController implements Initializable{
             tfNPWP.setText("");
             tfSaldoRekening.setText("");
             labelSaveStatus.setText("");
+            nominalTransaksi.setText("");
         } catch (SQLException ex) {
             System.out.println(ex); 
             Logger.getLogger(NasabahFormController.class.getName()).log(Level.SEVERE, null, ex);
@@ -310,23 +334,83 @@ public class NasabahFormController implements Initializable{
     }
     
     @FXML
-    void OpenTransaksi(ActionEvent even){
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Tariktunai.fxml"));
-            Parent root = loader.load();
-            TariktunaiController transaksiTarikTunai = loader.getController();
-            
-            transaksiTarikTunai.showInformation("" + tfIDNasabahBaru.getText(),
-                    "" + globRek.getNoRekening());
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Transaksi");
-            stage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(NasabahFormController.class.getName()).log(Level.SEVERE, null, ex);
+    void TarikTunai(ActionEvent even){
+        if(globRek.getSaldo() < Double.parseDouble(nominalTransaksi.getText())){
+            lblStatusTransaksi.setText("Saldo Anda Tidak Mencukupi");
+        }else{
+            try {
+                Double temp = globRek.getSaldo() - Double.parseDouble(nominalTransaksi.getText());
+                String sql = " UPDATE rekening SET saldo = " + temp
+                        + " WHERE no_rekening = " + globRek.getNoRekening();
+                
+                PreparedStatement stmtUpdate = ndm.conn.prepareStatement(sql);
+                stmtUpdate.execute();
+                lblStatusTransaksi.setText("Saldo Berhasil Di Update");
+                btnRefresh.fire();
+                btnClear.fire();
+                viewDataRekening(Integer.parseInt(tfNoRekTransaksi.getText()));
+            } catch (SQLException ex) {
+                Logger.getLogger(NasabahFormController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-
+    }
+    
+    @FXML
+    void TarikTunai1(ActionEvent even){
+        if(globRek.getSaldo() < Double.parseDouble(nominalTransaksi.getText())){
+            lblStatusTransaksi1.setText("Saldo Anda Tidak Mencukupi");
+        }else{
+            try {
+                Double temp = globRek.getSaldo() - Double.parseDouble(nominalTransaksi1.getText());
+                String sql = " UPDATE rekening SET saldo = " + temp
+                        + " WHERE no_rekening = " + globRek.getNoRekening();
+                
+                PreparedStatement stmtUpdate = ndm.conn.prepareStatement(sql);
+                stmtUpdate.execute();
+                lblStatusTransaksi1.setText("Saldo Berhasil Di Update");
+                btnRefresh1.fire();
+                btnClear1.fire();
+                viewDataRekening(Integer.parseInt(tfNoRekTransaksi1.getText()));
+            } catch (SQLException ex) {
+                Logger.getLogger(NasabahFormController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    @FXML
+    void SetorTunai(ActionEvent even){
+        try {
+                Double temp = globRek.getSaldo() + Double.parseDouble(nominalTransaksi.getText());
+                String sql = " UPDATE rekening SET saldo = " + temp
+                        + " WHERE no_rekening = " + globRek.getNoRekening();
+                
+                PreparedStatement stmtUpdate = ndm.conn.prepareStatement(sql);
+                stmtUpdate.execute();
+                lblStatusTransaksi.setText("Saldo Berhasil Di Update");
+                btnRefresh1.fire();
+                btnClear1.fire();
+                viewDataRekening(Integer.parseInt(tfNoRekTransaksi.getText()));
+            } catch (Exception ex) {
+                Logger.getLogger(NasabahFormController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
+    
+    @FXML
+    void SetorTunai1(ActionEvent even){
+        try {
+                Double temp = globRek.getSaldo() + Double.parseDouble(nominalTransaksi1.getText());
+                String sql = " UPDATE rekening SET saldo = " + temp
+                        + " WHERE no_rekening = " + globRek.getNoRekening();
+                
+                PreparedStatement stmtUpdate = ndm.conn.prepareStatement(sql);
+                stmtUpdate.execute();
+                lblStatusTransaksi1.setText("Saldo Berhasil Di Update");
+                btnRefresh1.fire();
+                btnClear1.fire();
+                viewDataRekening(Integer.parseInt(tfNoRekTransaksi1.getText()));
+            } catch (SQLException ex) {
+                Logger.getLogger(NasabahFormController.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
     
     @Override
@@ -375,7 +459,15 @@ public class NasabahFormController implements Initializable{
         tabelRekening.getSelectionModel().selectedIndexProperty().addListener(listener->{
             if(tabelRekening.getSelectionModel().getSelectedItem()!= null){
                 globRek = tabelRekening.getSelectionModel().getSelectedItem();
-                btnTransaksi.setDisable(false);
+                tfNoRekTransaksi.setText(""+globRek.getNoRekening());
+                btnTarik.setDisable(false);
+            }
+        });
+        tabelRekening1.getSelectionModel().selectedIndexProperty().addListener(listener->{
+            if(tabelRekening1.getSelectionModel().getSelectedItem()!= null){
+                globRek = tabelRekening1.getSelectionModel().getSelectedItem();
+                tfNoRekTransaksi1.setText(""+globRek.getNoRekening());
+                btnTarik1.setDisable(false);
             }
         });
     }

@@ -153,26 +153,14 @@ public class nasabahDataModel {
         stmtRekening.execute();
     }
     
-    public void UpdateSaldoTarikTunai(int id_nasabah, int rekening, double nominal){
+    public void updateSaldoTarikTunai(double saldo, int no_rekening){
         try {
-            ObservableList<Rekening> data = FXCollections.observableArrayList();
-            String sql = "SELECT no_rekening, saldo "
-                    + "FROM rekening "
-                    + "WHERE no_rekening="+rekening;
+            String sql = "UPDATE rekening SET saldo = " + saldo
+                    + " WHERE no_rekening = " + no_rekening;
             
-            ResultSet rs = conn.createStatement().executeQuery(sql);
-            while(rs.next()){
-                data.add(new Rekening(rs.getInt(1), rs.getDouble(2)));
-            }
-            ArrayList<Rekening> tempRekening = (ArrayList<Rekening>) data;
-            double temp = tempRekening.get(0).getSaldo() - nominal;
-            String updateRekening = "UPDATE rekening SET saldo ="+temp+" WHERE id_nasabah ="+id_nasabah;
-            
-            PreparedStatement stmtRekening = conn.prepareStatement(updateRekening);
-            stmtRekening.execute();
-            System.out.println("Berhasil");
+            PreparedStatement stmtUpdate = conn.prepareStatement(sql);
+            stmtUpdate.execute();
         } catch (SQLException ex) {
-            System.out.println(ex);
             Logger.getLogger(nasabahDataModel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
