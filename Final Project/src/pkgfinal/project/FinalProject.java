@@ -1,6 +1,7 @@
 package pkgfinal.project;
 
 import db.DBHelper;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,12 +16,11 @@ public class FinalProject extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("NasabahForm.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
         
         Scene scene = new Scene(root);
 //        scene.setRoot(root);
         
-        stage.setTitle("SISTEM KOPERASI");
         stage.setScene(scene);
         stage.show();
     }

@@ -12,6 +12,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import Utilities.Helper;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 
 
@@ -32,26 +40,42 @@ public class LoginController implements Initializable {
     private Label infotxt;
     @FXML
     private Label succes;
-
+    
+    @FXML
+    public void handleButton(ActionEvent event){
+        Stage stage;
+        Scene scene;
+        Parent root;
+        if(checkLogin()){
+            try {
+                root = FXMLLoader.load(getClass().getResource("NasabahForm.fxml"));
+                stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+                System.out.println("GUd");
+            } catch (IOException ex) {
+                System.out.println("gagal Load");
+                Logger.getLogger(Helper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+      }
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }   
-    
-    public void handleButton(ActionEvent event) throws IOException{
-      checkLogin();
     }
     
-
-    private void checkLogin() throws IOException {
-         String username = txtUsername.getText();
-         String password = txtPassword.getText();
-        if (username.equals("namasaya") && password.equals("12345")){
+    private boolean checkLogin(){
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
+        if (username.equals("admin") && password.equals("12345")){
             succes.setText("Succes!");
+            return true;
         } else {
-            infotxt.setText("Wrong User Password or User Name");
-        }  
+            infotxt.setText("Wrong!\nUsername : admin\nPassword : 12345");
+            return false; 
+        }
     }
           
    

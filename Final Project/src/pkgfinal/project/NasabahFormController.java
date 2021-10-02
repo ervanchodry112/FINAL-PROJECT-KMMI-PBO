@@ -166,9 +166,6 @@ public class NasabahFormController implements Initializable{
     @FXML
     private TextField tfSaldoRekeningBaru1;
     
-    @FXML
-    private MenuItem tabClose;
-    
     private nasabahDataModel ndm;
 
     @FXML
