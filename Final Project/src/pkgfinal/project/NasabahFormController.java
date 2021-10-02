@@ -1,6 +1,7 @@
 package pkgfinal.project;
 
 import java.awt.MenuItem;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -9,13 +10,17 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class NasabahFormController implements Initializable{
 
@@ -166,7 +171,11 @@ public class NasabahFormController implements Initializable{
     @FXML
     private TextField tfSaldoRekeningBaru1;
     
+    @FXML
+    private Button btnTransaksi;
+    
     private nasabahDataModel ndm;
+    private Rekening globRek;
 
     @FXML
     void HandleButtonClear(ActionEvent event) {
@@ -300,6 +309,26 @@ public class NasabahFormController implements Initializable{
         }
     }
     
+    @FXML
+    void OpenTransaksi(ActionEvent even){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Tariktunai.fxml"));
+            Parent root = loader.load();
+            TariktunaiController transaksiTarikTunai = loader.getController();
+            
+            transaksiTarikTunai.showInformation("" + tfIDNasabahBaru.getText(),
+                    "" + globRek.getNoRekening());
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Transaksi");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(NasabahFormController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -339,6 +368,14 @@ public class NasabahFormController implements Initializable{
                 } catch (SQLException ex) {
                     Logger.getLogger(NasabahFormController.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }
+        });
+        
+        
+        tabelRekening.getSelectionModel().selectedIndexProperty().addListener(listener->{
+            if(tabelRekening.getSelectionModel().getSelectedItem()!= null){
+                globRek = tabelRekening.getSelectionModel().getSelectedItem();
+                btnTransaksi.setDisable(false);
             }
         });
     }

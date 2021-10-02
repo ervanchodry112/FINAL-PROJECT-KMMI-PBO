@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -149,5 +151,29 @@ public class nasabahDataModel {
         stmtRekening.setInt(2, rekening.getNoRekening());
         stmtRekening.setDouble(3, rekening.getSaldo());
         stmtRekening.execute();
+    }
+    
+    public void UpdateSaldoTarikTunai(int id_nasabah, int rekening, double nominal){
+        try {
+            ObservableList<Rekening> data = FXCollections.observableArrayList();
+            String sql = "SELECT no_rekening, saldo "
+                    + "FROM rekening "
+                    + "WHERE no_rekening="+rekening;
+            
+            ResultSet rs = conn.createStatement().executeQuery(sql);
+            while(rs.next()){
+                data.add(new Rekening(rs.getInt(1), rs.getDouble(2)));
+            }
+            ArrayList<Rekening> tempRekening = (ArrayList<Rekening>) data;
+            double temp = tempRekening.get(0).getSaldo() - nominal;
+            String updateRekening = "UPDATE rekening SET saldo ="+temp+" WHERE id_nasabah ="+id_nasabah;
+            
+            PreparedStatement stmtRekening = conn.prepareStatement(updateRekening);
+            stmtRekening.execute();
+            System.out.println("Berhasil");
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            Logger.getLogger(nasabahDataModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

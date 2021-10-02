@@ -7,7 +7,13 @@ package pkgfinal.project;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,65 +29,40 @@ import javafx.scene.control.TextField;
 public class TariktunaiController implements Initializable {
 
     @FXML
-    private TextField txtrekdep;
-    @FXML
-    private TextField txtrektun;
-    @FXML
-    private TextField txtnominaldep;
-    @FXML
-    private TextField txtnominaltun;
-    @FXML
-    private Button btntarik;
-    @FXML
     private Button btndeposit;
+
     @FXML
-    private TextField txtpassword;
-    @FXML 
-    private Label succes;
+    private Button btntunai;
+
     @FXML
     private Label failed;
-    @FXML 
-    private Label succes2;
+
     @FXML
-    private Label failed2;
-    
-    
-    public void handletarik(ActionEvent event) throws IOException{
-      checktarik();
+    private Label succes;
+
+    @FXML
+    private TextField tfIDNasabah;
+
+    @FXML
+    private TextField txtnominal;
+
+    @FXML
+    private TextField txtrek;
+
+    @FXML
+    void handledeposit(ActionEvent event) {
+
     }
 
-   
-    private void checktarik() throws IOException {
-         String rektun = txtrektun.getText();
-         String password = txtpassword.getText();
-         String nominaltun= txtnominaltun.getText();
-     
-        if (password.equals("12345")){
-            succes.setText("Succes!");
-        } else {
-            failed.setText("Transaction Failed!");
-        }  
-    }
-   
-   
-    public void handledeposit(ActionEvent event) throws IOException{
-      checkdeposit();
-    }
+    @FXML
+    void handletarik(ActionEvent event) {
 
-   
-    private void checkdeposit() throws IOException {
-         String rektun = txtrekdep.getText();
-         String nominaltun= txtnominaldep.getText();
-        
-         //if ()){
-            succes2.setText("Succes!");
-        ///} else {
-      //      failed2.setText("Transaction Failed!");
-      //  }  
     }
     
-    
-
+    public void showInformation(String id_nasabah, String no_rekening){
+        tfIDNasabah.setText(id_nasabah);
+        txtrek.setText(no_rekening);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
