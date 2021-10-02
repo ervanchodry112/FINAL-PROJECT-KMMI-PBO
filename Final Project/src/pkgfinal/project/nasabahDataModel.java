@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -149,5 +151,17 @@ public class nasabahDataModel {
         stmtRekening.setInt(2, rekening.getNoRekening());
         stmtRekening.setDouble(3, rekening.getSaldo());
         stmtRekening.execute();
+    }
+    
+    public void updateSaldoTarikTunai(double saldo, int no_rekening){
+        try {
+            String sql = "UPDATE rekening SET saldo = " + saldo
+                    + " WHERE no_rekening = " + no_rekening;
+            
+            PreparedStatement stmtUpdate = conn.prepareStatement(sql);
+            stmtUpdate.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(nasabahDataModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

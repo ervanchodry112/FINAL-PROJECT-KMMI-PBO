@@ -25,18 +25,7 @@ public class FinalProject extends Application {
         stage.show();
     }
 
-    /**
-     * @param args the command line arguments
-     * @throws java.lang.Exception
-     */
     public static void main(String[] args)throws Exception{
-            
-            try{
-                DBHelper.getConnection("SQLITE");
-            }
-            catch(SQLException ex){
-                System.out.println("koneksi gagal");
-            }
             launch(args);
 //        try {
 //            Rekening rek = new Rekening(12, 100000.);

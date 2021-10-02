@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="648.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pkgfinal.project.TariktunaiController">
+   <center>
+      <AnchorPane prefHeight="467.0" prefWidth="331.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
+         <children>
+            <Text layoutX="206.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Setoran dan Tarik Tunai" textAlignment="CENTER">
+               <font>
+                  <Font name="Georgia" size="22.0" />
+               </font>
+            </Text>
+            <TextField fx:id="txtrek" editable="false" layoutX="216.0" layoutY="171.0" prefHeight="31.0" prefWidth="218.0" promptText="No rekening">
+               <font>
+                  <Font size="15.0" />
+               </font></TextField>
+            <TextField fx:id="txtnominal" layoutX="215.0" layoutY="262.0" prefHeight="25.0" prefWidth="218.0" promptText="Nominal">
+               <font>
+                  <Font size="15.0" />
+               </font></TextField>
+            <Label fx:id="succes" alignment="CENTER" contentDisplay="CENTER" layoutX="264.0" layoutY="306.0" prefHeight="17.0" prefWidth="170.0" textAlignment="CENTER" textFill="#13ff0f" />
+            <Label fx:id="failed" alignment="CENTER" contentDisplay="CENTER" layoutX="239.0" layoutY="306.0" prefHeight="17.0" prefWidth="171.0" textAlignment="CENTER" textFill="#e51102" />
+            <TextField fx:id="tfIDNasabah" editable="false" layoutX="215.0" layoutY="127.0" prefHeight="31.0" prefWidth="220.0" promptText="ID Nasabah">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+            <Button fx:id="btntunai" contentDisplay="CENTER" layoutX="254.0" layoutY="339.0" mnemonicParsing="false" onAction="#handletarik" prefHeight="30.0" prefWidth="143.0" style="-fx-background-color: #1e90ff;" text="Tarik Tunai" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <Button fx:id="btndeposit" alignment="CENTER" contentDisplay="CENTER" layoutX="254.0" layoutY="383.0" mnemonicParsing="false" onAction="#handledeposit" prefHeight="30.0" prefWidth="144.0" style="-fx-background-color: #1e90ff;" text="Deposit" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <TextField fx:id="tfSaldo" editable="false" layoutX="215.0" layoutY="217.0" prefHeight="25.0" prefWidth="218.0" promptText="Saldo saat ini">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

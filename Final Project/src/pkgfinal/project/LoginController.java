@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import Utilities.Helper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
@@ -53,10 +52,8 @@ public class LoginController implements Initializable {
                 scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
-                System.out.println("GUd");
             } catch (IOException ex) {
-                System.out.println("gagal Load");
-                Logger.getLogger(Helper.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             }
       }
     }
