@@ -311,6 +311,7 @@ public class NasabahFormController implements Initializable{
             tfNIB.setText("");
             tfSaldoRekening1.setText("");
             labelSaveStatus1.setText("");
+            nominalTransaksi1.setText("");
         } catch (SQLException ex) {
             System.out.println(ex); 
             Logger.getLogger(NasabahFormController.class.getName()).log(Level.SEVERE, null, ex);
@@ -335,7 +336,7 @@ public class NasabahFormController implements Initializable{
     
     @FXML
     void TarikTunai(ActionEvent even){
-        if(globRek.getSaldo() < Double.parseDouble(nominalTransaksi.getText())){
+        if(globRek.getSaldo() <= Double.parseDouble(nominalTransaksi.getText())){
             lblStatusTransaksi.setText("Saldo Anda Tidak Mencukupi");
         }else{
             try {
@@ -357,7 +358,7 @@ public class NasabahFormController implements Initializable{
     
     @FXML
     void TarikTunai1(ActionEvent even){
-        if(globRek.getSaldo() < Double.parseDouble(nominalTransaksi.getText())){
+        if(globRek.getSaldo() <= Double.parseDouble(nominalTransaksi1.getText())){
             lblStatusTransaksi1.setText("Saldo Anda Tidak Mencukupi");
         }else{
             try {
@@ -387,8 +388,8 @@ public class NasabahFormController implements Initializable{
                 PreparedStatement stmtUpdate = ndm.conn.prepareStatement(sql);
                 stmtUpdate.execute();
                 lblStatusTransaksi.setText("Saldo Berhasil Di Update");
-                btnRefresh1.fire();
-                btnClear1.fire();
+                btnRefresh.fire();
+                btnClear.fire();
                 viewDataRekening(Integer.parseInt(tfNoRekTransaksi.getText()));
             } catch (Exception ex) {
                 Logger.getLogger(NasabahFormController.class.getName()).log(Level.SEVERE, null, ex);
